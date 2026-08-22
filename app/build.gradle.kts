@@ -45,9 +45,12 @@ dependencies {
     // Muntashir's libadb-android handles the Android-11+ wireless-adb TLS pair
     // (SPAKE2) and the daily connect. Small, single-purpose, widely used.
     implementation("com.github.MuntashirAkon:libadb-android:3.1.1")
-    // X509 helper the library asks for on Android.
-    implementation("com.github.MuntashirAkon:sun-security-android:1.1")
-    // A Conscrypt build that works when talking to a REMOTE adbd - the pair here
-    // is to 127.0.0.1 but the TLS stack is the same code path.
+    // BouncyCastle for generating the client X.509 that libadb-android needs.
+    // Chosen over sun-security-android because JitPack often fails to build the
+    // latter on first request, and BC is on Maven Central so the build is stable.
+    implementation("org.bouncycastle:bcprov-jdk18on:1.78.1")
+    implementation("org.bouncycastle:bcpkix-jdk18on:1.78.1")
+    // Conscrypt build compatible with talking to a remote adbd. The pair here is
+    // 127.0.0.1 but the TLS code path is the same.
     implementation("org.conscrypt:conscrypt-android:2.5.3")
 }
