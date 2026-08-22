@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Display Helper</string>
+
+    <string name="pair_host">127.0.0.1</string>
+    <string name="hint_pair_port">Pairing port (Settings screen)</string>
+    <string name="hint_pair_code">6-digit pairing code</string>
+    <string name="hint_connect_port">Connect port (main screen)</string>
+
+    <string name="btn_pair">Pair (one time)</string>
+    <string name="btn_fire">Fire</string>
+    <string name="btn_forget">Forget pairing</string>
+
+    <string name="status_idle">Idle</string>
+</resources>
