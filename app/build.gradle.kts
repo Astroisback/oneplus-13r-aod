@@ -43,12 +43,15 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
 
     // Muntashir's libadb-android handles the Android-11+ wireless-adb TLS pair
-    // (SPAKE2) and the daily connect. Small, single-purpose, widely used.
-    // It transitively pulls bcprov-jdk15to18:1.81 -- we match on that variant
-    // and only add the pkix companion to avoid a duplicate-class conflict.
-    implementation("com.github.MuntashirAkon:libadb-android:3.1.1")
+    // (SPAKE2) and the daily connect. Pinned to the latest master commit, as
+    // OxygenOS 17 changed something in adbd's handshake and 3.1.1 (the last
+    // release tag) started failing. The commit below is from Jan 2026.
+    implementation("com.github.MuntashirAkon:libadb-android:c849886ebc")
+    // Must match the version libadb's internal spake2-android+core expect.
+    // Duplicate-class check in AGP will blow up if these drift apart.
     implementation("org.bouncycastle:bcpkix-jdk15to18:1.81")
-    // Conscrypt build compatible with talking to a remote adbd. The pair here is
-    // 127.0.0.1 but the TLS code path is the same.
-    implementation("org.conscrypt:conscrypt-android:2.5.3")
+    // Latest stable conscrypt (2.7.0, released 2026-08-31). The 2.6/2.7 series
+    // adds TLS-stack updates that the adbd on OxygenOS 17 appears to need; the
+    // old 2.5.3 line (Aug 2024) stopped working after that OTA.
+    implementation("org.conscrypt:conscrypt-android:2.7.0")
 }
